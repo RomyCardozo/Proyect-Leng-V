@@ -1,0 +1,14 @@
+ion-content {
+  --background: #ffccf2;
+}
+
+ion-button.custom-red {
+  --background: #ef4444;  // Color rojo
+  --color: white;         // Color del icono/texto
+  --background-hover: #dc2626; // Rojo más oscuro al pasar el mouse
+}
+ion-button.custom-green {
+  --background: #5de658;  // Color rojo
+  --color: white;         // Color del icono/texto
+  --background-hover: #60be5d; // Rojo más oscuro al pasar el mouse
+}

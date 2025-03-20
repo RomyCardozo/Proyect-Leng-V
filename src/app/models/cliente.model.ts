@@ -1,5 +1,6 @@
 export interface Cliente {
-  id?: string;
+  id?: string; // ID generado por Firestore
   nombre: string;
-  correo: string;
+  telefono: string;
+  estado: 'activo' | 'inactivo';
 }

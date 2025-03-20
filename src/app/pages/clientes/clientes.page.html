@@ -1,13 +1,52 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>clientes</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Clientas</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">clientes</ion-title>
+      <ion-title size="large">Clientas</ion-title>
     </ion-toolbar>
   </ion-header>
+  <ion-searchbar class="border rounded mt-3 mb-3"></ion-searchbar>
+
+
+  <ion-grid class="border rounded-2xl bg-pink-50 m-4">
+     <!-- Encabezados de la tabla -->
+      <ion-row class="bg-pink-50 font-bold ">
+          <ion-col class="py-3 ">Nombre</ion-col>
+          <ion-col class="py-3 ">Teléfono</ion-col>
+          <ion-col class="py-3 ">Estado</ion-col>
+          <ion-col class="py-3 ">Acciones</ion-col>
+      </ion-row>
+
+      <!-- Filas dinámicas -->
+<div class="flex flex-col justify-items-center ">
+      <ion-row *ngFor="let cliente of clientes" class="border-b">
+        <ion-col class="py-2 mt-0">{{cliente.nombre}}</ion-col>
+        <ion-col class="py-2">{{cliente.telefono}}</ion-col>
+        <ion-col class="py-2">{{cliente.estado}}</ion-col>
+        <div class="flex items-center w-min">
+        <ion-col class="flex text-end gap-1">
+          <ion-button class="custom-red !h-8 !w-8 !min-w-0 !p-0 !rounded-none " (click)="eliminarClientes()"> <ion-icon  name="trash-outline"slot="icon-only"
+            class="!text-sm"  ></ion-icon></ion-button>
+          <ion-button class="custom-green !h-8 !w-8 !min-w-0 !p-0 !rounded-none " (click)="editarClientes()"> <ion-icon name="create-outline" slot="icon-only"
+            class="!text-sm"></ion-icon></ion-button>
+        </ion-col>
+      </div>
+      </ion-row>
+    </div>
+  </ion-grid>
+
+
+  <ion-fab  vertical="bottom" horizontal="end" slot="fixed" >
+    <ion-fab-button (click)="probarAddCliente()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

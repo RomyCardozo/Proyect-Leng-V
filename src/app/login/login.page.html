@@ -1,0 +1,44 @@
+<ion-content [fullscreen]="true">
+  <ion-grid class="h-full ion-padding">
+    <ion-row class="ion-justify-content-center ion-align-items-center w-full h-full">
+
+      <!-- Tarjeta de Login -->
+      <ion-col
+        size="12"
+        size-md="6"
+        size-lg="4"
+        class="border rounded-2xl bg-pink-50 ion-padding space-y-4"
+      >
+       <!-- Título agregado -->
+       <div class="text-center mb-4">
+        <h1 class="text-2xl italic">
+          Bienvenida
+        </h1>
+        <p class="text-sm text-pink-400 mt-1">Gestiona tus clientas con estilo</p>
+      </div>
+
+        <!-- Campo Email -->
+        <ion-input
+          label="Email"
+          placeholder="romina@gmail.com"
+          fill="outline"
+          class="ion-margin-bottom"
+        ></ion-input>
+
+        <!-- Campo Password -->
+        <ion-input type="password" fill="outline" label="Password" value="NeverGonnaGiveYouUp">
+          <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+        </ion-input>
+
+        <!-- Botón Login -->
+        <ion-button
+          expand="block"
+          class="custom-pink"
+        >
+          Login
+        </ion-button>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+</ion-content>
