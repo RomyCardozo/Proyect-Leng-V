@@ -12,3 +12,12 @@ ion-button.custom-green {
   --color: white;         // Color del icono/texto
   --background-hover: #60be5d; // Rojo más oscuro al pasar el mouse
 }
+
+ion-fab.custom-fab {
+
+  --background: #ec4899 !important;
+  --background-hover: #db2777 !important;
+  --color: white;
+  --icon-color: white;
+
+}
