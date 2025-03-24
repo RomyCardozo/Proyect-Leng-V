@@ -2,6 +2,9 @@
   <ion-grid class="h-full ion-padding">
     <ion-row class="ion-justify-content-center ion-align-items-center w-full h-full">
 
+      <!-- <div class="w-full flex justify-center mb-0">
+        <ion-img src="assets/icon/logo.png" class="w-40 h-auto"></ion-img>
+      </div> -->
       <!-- Tarjeta de Login -->
       <ion-col
         size="12"
@@ -9,26 +12,32 @@
         size-lg="4"
         class="border rounded-2xl bg-pink-50 ion-padding space-y-4"
       >
-       <!-- Título agregado -->
-       <div class="text-center mb-4">
-        <h1 class="text-2xl italic">
-          Bienvenida
-        </h1>
-        <p class="text-sm text-pink-400 mt-1">Gestiona tus clientas con estilo</p>
-      </div>
+        <!-- Título agregado -->
+        <div class="text-center mb-4">
+          <h1 class="text-2xl italic">
+            Bienvenida
+          </h1>
+          <p class="text-sm text-pink-400 mt-1">Gestiona tus clientas con estilo</p>
+        </div>
 
-        <!-- Campo Email -->
-        <ion-input
-          label="Email"
-          placeholder="romina@gmail.com"
-          fill="outline"
-          class="ion-margin-bottom"
-        ></ion-input>
+        <!-- Campo Email con ícono -->
+        <ion-item class="ion-no-padding ion-margin-bottom" lines="none">
+          <ion-icon slot="start" name="mail-outline" class="text-pink-500 text-xl ml-2"></ion-icon>
+          <ion-input
+            placeholder="user@gmail.com"
+          ></ion-input>
+        </ion-item>
 
-        <!-- Campo Password -->
-        <ion-input type="password" fill="outline" label="Password" value="NeverGonnaGiveYouUp">
-          <ion-input-password-toggle slot="end"></ion-input-password-toggle>
-        </ion-input>
+        <!-- Campo Password con ícono -->
+        <ion-item class="ion-no-padding ion-margin-bottom" lines="none">
+          <ion-icon slot="start" name="lock-closed-outline" class="text-pink-500 text-xl ml-2"></ion-icon>
+          <ion-input
+            type="password"
+            value="1234567891011121314151617181920"
+          >
+            <ion-input-password-toggle slot="end" color="primary" ></ion-input-password-toggle>
+          </ion-input>
+        </ion-item>
 
         <!-- Botón Login -->
         <ion-button
@@ -37,7 +46,7 @@
           expand="block"
           class="custom-pink"
         >
-          Login
+          Iniciar sesion
         </ion-button>
       </ion-col>
 

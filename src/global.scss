@@ -40,3 +40,7 @@
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 /*@import "@ionic/angular/css/palettes/dark.system.css";*/
 
+ion-content {
+  --background: linear-gradient(90deg, rgba(255,142,205,1) 0%, rgb(218, 111, 169) 35%, rgba(242,192,220,1) 100%);
+
+}

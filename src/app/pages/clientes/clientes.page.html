@@ -7,45 +7,50 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="ion-padding">
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">Clientas</ion-title>
     </ion-toolbar>
   </ion-header>
-  <ion-searchbar class="border rounded mt-3 mb-3"></ion-searchbar>
+  <ion-searchbar class="border rounded mt-3 mb-3" (ionInput)="buscarClientes($event)" placeholder="Buscar clientas"></ion-searchbar>
 
 
-  <ion-grid class="border rounded-2xl bg-pink-50 m-4">
+  <ion-grid class="bg-pink-50 rounded-lg shadow-lg ion-padding-content">
      <!-- Encabezados de la tabla -->
-      <ion-row class="bg-pink-50 font-bold ">
-          <ion-col class="py-3 ">Nombre</ion-col>
-          <ion-col class="py-3 ">Teléfono</ion-col>
-          <ion-col class="py-3 ">Estado</ion-col>
-          <ion-col class="py-3 ">Acciones</ion-col>
-      </ion-row>
+     <ion-row class= "bg-pink-50 font-bold">
+      <ion-col class="ml-5 py-3">Nombre</ion-col>
+      <ion-col class="py-3">Apellido</ion-col>
+      <ion-col class="py-3">Teléfono</ion-col>
+      <ion-col class="py-3 text-right">Acciones</ion-col>
+    </ion-row>
 
       <!-- Filas dinámicas -->
-<div class="flex flex-col justify-items-center ">
-      <ion-row *ngFor="let cliente of clientes" class="border-b">
-        <ion-col class="py-2 mt-0">{{cliente.nombre}}</ion-col>
+
+      <ion-row  *ngFor="let cliente of clientesFiltrados" class="border-b">
+        <ion-col class="ml-5 py-2">{{cliente.nombre}}</ion-col>
+        <ion-col class="py-2">{{cliente.apellido}}</ion-col>
         <ion-col class="py-2">{{cliente.telefono}}</ion-col>
-        <ion-col class="py-2">{{cliente.estado}}</ion-col>
-        <div class="flex items-center w-min">
-        <ion-col class="flex text-end gap-1">
+      <!--   <ion-col class="py-2">
+          <ion-badge [color]="cliente.estado === 'activo' ? 'success' : 'danger'">
+            {{ cliente.estado }}
+          </ion-badge>
+        </ion-col> -->
+
+        <ion-col class="py-2 flex justify-end gap-1">
           <ion-button class="custom-red !h-8 !w-8 !min-w-0 !p-0 !rounded-none " (click)="eliminarClientes()"> <ion-icon  name="trash-outline"slot="icon-only"
             class="!text-sm"  ></ion-icon></ion-button>
           <ion-button class="custom-green !h-8 !w-8 !min-w-0 !p-0 !rounded-none " (click)="editarClientes()"> <ion-icon name="create-outline" slot="icon-only"
             class="!text-sm"></ion-icon></ion-button>
         </ion-col>
-      </div>
+
       </ion-row>
-    </div>
+
   </ion-grid>
 
 
-  <ion-fab  vertical="bottom" class="custom-fab" horizontal="end" slot="fixed" >
-    <ion-fab-button (click)="probarAddCliente()">
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button class="custom-fab" (click)="probarAddCliente()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
