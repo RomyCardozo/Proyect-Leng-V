@@ -16,7 +16,7 @@
         <!-- Título agregado -->
         <div class="text-center mb-4">
           <h1 class="text-2xl font-serif">Bienvenida</h1>
-          <p class="text-sm text-pink-400 mt-1">
+          <p class="text-sm mt-1" color="primary">
             Gestiona tus clientas con estilo
           </p>
         </div>
@@ -29,7 +29,8 @@
           <ion-icon
             slot="start"
             name="mail-outline"
-            class="text-pink-500 text-xl ml-2"
+            class="text-xl ml-2"
+            color="primary"
           ></ion-icon>
           <ion-input placeholder="user@gmail.com"></ion-input>
         </ion-item>
@@ -42,7 +43,8 @@
           <ion-icon
             slot="start"
             name="lock-closed-outline"
-            class="text-pink-500 text-xl ml-2"
+            class=" text-xl ml-2"
+            color="primary"
           ></ion-icon>
           <ion-input type="password" value="1234567891011121314151617181920">
             <ion-input-password-toggle
@@ -55,16 +57,24 @@
         <!-- Botón Login -->
         <ion-button
           type="submit"
-          routerLink="/home"
+          routerLink="/citas"
           expand="block"
           class="custom-pink"
         >
           Iniciar sesion
         </ion-button>
+        <ion-button
+        fill="outline"
+        routerLink="/register"
+        expand="block"
+        routerLink="/register"
+      >
+        Registrate
+      </ion-button>
         <!-- Olvidaste tu contraseña? -->
         <ion-col size="12" size-md="6" size-lg="4" class="ion-text-center flex justify-center items-center hover:text-pink-500">
-          <ion-label class="text-sm text-pink-500"
-            >¿Olvidaste tu contraseña?</ion-label
+          <ion-label class="text-sm" color="dark">
+            ¿Olvidaste tu contraseña?</ion-label
           >
         </ion-col>
       </ion-col>
