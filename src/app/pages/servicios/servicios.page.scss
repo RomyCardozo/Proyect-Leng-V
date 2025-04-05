@@ -1,0 +1,36 @@
+
+ion-button.custom-red {
+  --background: #ef4444;  // Color rojo
+  --color: white;         // Color del icono/texto
+  --background-hover: #dc2626; // Rojo más oscuro al pasar el mouse
+
+}
+ion-button.custom-green {
+  --background: #5de658;  // Color rojo
+  --color: white;         // Color del icono/texto
+  --background-hover: #60be5d; // Rojo más oscuro al pasar el mouse
+}
+
+// ion-fab.custom-fab {
+
+//   --background: #ec4899 !important;
+//   --background-hover: #db2777 !important;
+//   --color: white;
+//   --icon-color: white;
+
+// }
+
+
+ion-grid{
+  --background: #ffccd0;
+  overflow-x: auto; // Scroll horizontal en móviles
+  overflow-y: auto; // Scroll vertical en móviles
+}
+
+ion-row {
+  flex-wrap: nowrap; // Evita saltos de línea
+}
+
+ion-col {
+  min-width: 100px; // Ancho mínimo para evitar que las columnas se compriman demasiado
+}

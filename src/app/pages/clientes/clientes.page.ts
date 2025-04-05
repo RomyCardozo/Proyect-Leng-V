@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FirestoreService } from 'src/app/common/services/firestore.service';
 import { Cliente } from 'src/app/models/cliente.model';
 import { ClienteService } from 'src/app/services/cliente.service';
 
@@ -9,42 +10,30 @@ import { ClienteService } from 'src/app/services/cliente.service';
   standalone: false,
 })
 export class ClientesPage implements OnInit {
-  clientes: Cliente[] = [];
+  clientes: any[] = [];
+  clientesFiltrados: Cliente[] = [];
   searchTerm: string = '';
   fltroEstado: 'todos' | 'activo' | 'inactivo' = 'activo';
 
-  constructor(private clienteService : ClienteService) { }
-
+  constructor(private firestoreService : FirestoreService) {
+    this.listarClientes();
+  }
   ngOnInit() {
-    this.cargarClientes();
+
   }
 
 
-  cargarClientes() {
-    this.clienteService.getClientes().subscribe({
-      next: (clientes) => {
-        this.clientes = clientes; // Asignar la lista completa de clientes
-        this.clientesFiltrados = clientes; // Inicializar clientesFiltrados con todos los clientes
-      },
-      error: (error) => console.error('Error al cargar clientes:', error),
-    });
+ listarClientes() {
+  this.firestoreService.obtenerColecciones<Cliente>('clientes').subscribe((data) => {
+    if (data) {
+      this.clientes = data;
+      this.clientesFiltrados = [...data]; // Inicializar clientesFiltrados con todos los clientes
+    }
   }
-
-probarAddCliente() {
-    const nuevoCliente: Cliente = {
-      nombre: 'Julia',
-      apellido: 'Perez',
-      telefono: '0987454125',
-      estado: "activo",
-    };
-
-    this.clienteService.addCliente(nuevoCliente).then(() =>
-    console.log("✅ Cliente agregado con éxito")
-    ).catch(error =>
-    console.error('❌ Error al agregar cliente:', error)
-    );
+  );
 }
-clientesFiltrados = this.clientes;
+
+
 
 buscarClientes(event: any) {
 
@@ -52,7 +41,7 @@ buscarClientes(event: any) {
 
   if (text === '' || text === null) {
     // Si no hay texto de búsqueda, mostrar todos los clientes
-    this.clientesFiltrados = this.clientes;
+    this.clientesFiltrados = [...this.clientes];
   } else {
     // Si hay texto de búsqueda, filtrar los clientes
     this.clientesFiltrados = this.clientes.filter((cliente) => {
@@ -64,6 +53,22 @@ buscarClientes(event: any) {
     });
   }
 }
+
+
+probarAddCliente() {
+    const nuevoCliente: Cliente = {
+      nombre: 'Julia',
+      apellido: 'Perez',
+      telefono: '0987454125',
+      estado: "activo",
+    };
+
+   /* this.clienteService.addCliente(nuevoCliente).then(() =>
+    console.log("✅ Cliente agregado con éxito")
+    ).catch(error =>
+    console.error('❌ Error al agregar cliente:', error)
+    );*/
+}
   editarClientes() {
     console.log('Editar clientes');
   }
@@ -71,3 +76,4 @@ buscarClientes(event: any) {
     console.log('Eliminar clientes');
   }
 }
+
