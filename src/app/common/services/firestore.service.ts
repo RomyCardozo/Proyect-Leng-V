@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { collectionData, Firestore } from '@angular/fire/firestore';
+import { collectionData, doc, docData, Firestore } from '@angular/fire/firestore';
 import { collection } from 'firebase/firestore';
 import { Observable } from 'rxjs';
 
@@ -15,6 +15,11 @@ private firestore : Firestore = inject(Firestore);
     const item = collection(this.firestore, path);
     return collectionData(item) as Observable<tipo[]>;
   }
+
+ /* getDocumentChanges<tipo>(path: string) {
+    const item = doc(this.firestore, path);
+    return docData(item) as Observable<tipo>;
+  }*/
 
 
 

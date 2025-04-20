@@ -12,7 +12,7 @@ export class CitasService {
 
   constructor(private firestore: Firestore) {}
 
-  getCitas(): Observable<Cita[]>{
+ /* getCitas(): Observable<Cita[]>{
     return collectionData(this.citasRef, {idField: 'id'}) as Observable<Cita[]>;
   }
 
@@ -31,7 +31,7 @@ export class CitasService {
     const citaDoc = doc(this.firestore, `citas/${id}`);
     return deleteDoc(citaDoc);
   }
-
+*/
 
 
 }
