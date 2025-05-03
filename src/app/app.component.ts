@@ -12,8 +12,8 @@ export class AppComponent {
     { title: 'Citas', url: '/citas', icon: 'calendar' },
     { title: 'Servicios', url: '/servicios', icon: 'cut' },
     { title: 'Clientes', url: '/clientes', icon: 'people' },
-    { title: 'Recordatorios', url: '/recordatorios', icon: 'notifications' },
-    { title: 'Usuarios', url: '/usuarios', icon: 'person' }
+    { title: 'Usuarios', url: '/usuarios', icon: 'person' },
+    { title: 'Recordatorios', url: '/recordatorios', icon: 'notifications' }
   ];
     constructor(private menuCtrl: MenuController) {}
 

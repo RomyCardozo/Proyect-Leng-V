@@ -11,14 +11,6 @@ ion-button.custom-green {
   --background-hover: #60be5d; // Rojo más oscuro al pasar el mouse
 }
 
-// ion-fab.custom-fab {
-
-//   --background: #ec4899 !important;
-//   --background-hover: #db2777 !important;
-//   --color: white;
-//   --icon-color: white;
-
-// }
 
 
 ion-grid{
@@ -33,4 +25,9 @@ ion-row {
 
 ion-col {
   min-width: 100px; // Ancho mínimo para evitar que las columnas se compriman demasiado
+}
+
+/* Aplica clases de Tailwind CSS directamente */
+.custom-modal .modal-wrapper {
+  @apply max-w-3xl w-11/12 max-h-screen h-auto m-auto;  /* Ajusta el tamaño con Tailwind */
 }

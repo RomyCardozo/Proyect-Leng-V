@@ -2,6 +2,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 /*
  * App Global CSS
  * ----------------------------------------------------------------------------
@@ -12,7 +13,6 @@
  * For more information on global stylesheets, visit the documentation:
  * https://ionicframework.com/docs/layout/global-stylesheets
  */
-
 /* Core CSS required for Ionic components to work properly */
 @import "@ionic/angular/css/core.css";
 
@@ -40,7 +40,14 @@
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 /*@import "@ionic/angular/css/palettes/dark.system.css";*/
 
+
 ion-content {
   --background: linear-gradient(90deg, #e09492 0%, #eb8581 35%, #f3a7a4 100%);
 
+}
+.custom-modal {
+  --width: 50%;
+  --height: 60%;
+  --border-radius: 10px;
+  --background: white;
 }

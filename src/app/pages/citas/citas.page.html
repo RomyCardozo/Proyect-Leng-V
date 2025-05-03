@@ -26,13 +26,21 @@
         <p><strong>Estado:</strong> {{ cita.estado }}</p>
       </ion-label>
 
-      <ion-button fill="clear" color="danger" (click)="eliminarCita('eliminada')">
+      <ion-button class="custom-red !h-8 !w-8 !min-w-0 !p-0 !rounded-none " (click)="eliminarCita(cita.id)">
         <ion-icon name="trash-outline"></ion-icon>
       </ion-button>
 
-      <ion-button fill="clear" color="primary" (click)="editarCita('')">
+      <ion-button class="custom-green !h-8 !w-8 !min-w-0 !p-0 !rounded-none">
         <ion-icon name="create-outline"></ion-icon>
       </ion-button>
     </ion-item>
   </ion-list>
+
+
+  <!-- Añadir esto en tu template -->
+<!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab-button (click)="abrirModalCita()">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+</ion-fab> -->
 </ion-content>

@@ -13,44 +13,78 @@
       <ion-title size="large">Clientas</ion-title>
     </ion-toolbar>
   </ion-header>
-  <ion-searchbar class="border rounded mt-3 mb-3" (ionInput)="buscarClientes($event)" placeholder="Buscar clientas"></ion-searchbar>
-
+  <ion-searchbar
+    class="border rounded mt-3 mb-3"
+    (ionInput)="buscarClientes($event)"
+    placeholder="Buscar clientas"
+  ></ion-searchbar>
 
   <ion-grid class="bg-pink-50 rounded-lg shadow-lg ion-padding-content mb-20">
-     <!-- Encabezados de la tabla -->
-     <ion-row class= "bg-pink-50 font-bold">
+    <!-- Encabezados de la tabla -->
+    <ion-row class="bg-pink-50 font-bold">
       <ion-col class="ml-5 py-3">Nombre</ion-col>
       <ion-col class="py-3">Apellido</ion-col>
       <ion-col class="py-3">Teléfono</ion-col>
-      <ion-col class="py-3 text-right">Acciones</ion-col>
+      <ion-col class="py-3 text-center">Acciones</ion-col>
     </ion-row>
 
-      <!-- Filas dinámicas -->
+    <!-- Filas dinámicas -->
 
-      <ion-row  *ngFor="let cliente of clientesFiltrados" class="border-b">
-        <ion-col class="ml-5 py-2">{{cliente.nombre}}</ion-col>
-        <ion-col class="py-2">{{cliente.apellido}}</ion-col>
-        <ion-col class="py-2">{{cliente.telefono}}</ion-col>
+    <ion-row *ngFor="let cliente of clientesFiltrados" class="border-b">
+      <ion-col class="ml-5 py-2">{{cliente.nombre}}</ion-col>
+      <ion-col class="py-2">{{cliente.apellido}}</ion-col>
+      <ion-col class="py-2">{{cliente.telefono}}</ion-col>
       <!--   <ion-col class="py-2">
           <ion-badge [color]="cliente.estado === 'activo' ? 'success' : 'danger'">
             {{ cliente.estado }}
           </ion-badge>
         </ion-col> -->
 
-        <ion-col class="py-2 flex justify-end gap-1">
-          <ion-button class="custom-red !h-8 !w-8 !min-w-0 !p-0 !rounded-none " (click)="eliminarClientes()"> <ion-icon  name="trash-outline"slot="icon-only"
-            class="!text-sm"  ></ion-icon></ion-button>
-          <ion-button class="custom-green !h-8 !w-8 !min-w-0 !p-0 !rounded-none " (click)="editarClientes()"> <ion-icon name="create-outline" slot="icon-only"
-            class="!text-sm"></ion-icon></ion-button>
-        </ion-col>
+      <ion-col class="py-2 flex justify-center gap-1">
 
-      </ion-row>
-
+        <ion-button
+          class="custom-green !h-8 !w-8 !min-w-0 !p-0 !rounded-none"
+          (click)="abrirFormulario(cliente)"
+        >
+          <ion-icon
+            name="create-outline"
+            slot="icon-only"
+            class="!text-sm"
+          ></ion-icon
+        ></ion-button>
+        <ion-button
+          class="custom-red  !h-8 !w-8 !min-w-0 !p-0 !rounded-none"
+          (click)="deleteClient(cliente)"
+        >
+          <ion-icon
+            name="trash-outline"
+            slot="icon-only"
+            class="!text-sm"
+          ></ion-icon
+        ></ion-button>
+      </ion-col>
+    </ion-row>
   </ion-grid>
+<!--   <ion-card>
+    <ion-item>
+      <ion-label style="margin-right: 6px">Nombre: </ion-label>
+      <ion-input [(ngModel)]="newClient.nombre"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label style="margin-right: 6px">Apellido: </ion-label>
+      <ion-input [(ngModel)]="newClient.apellido"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label style="margin-right: 6px">Teléfono: </ion-label>
+      <ion-input [(ngModel)]="newClient.telefono"></ion-input>
+    </ion-item>
+  </ion-card>
+  <div style="margin: 20px">
+    <ion-button expand="full" (click)="saveClient()">Guardar</ion-button>
+  </div> -->
 
-
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button class="custom-fab" (click)="probarAddCliente()">
+<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button class="custom-fab" (click)="abrirFormulario()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>

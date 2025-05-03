@@ -1,0 +1,15 @@
+/* modal-styles.scss */
+.custom-modal-size {
+  --width: 90%; /* Ajusta el ancho del modal */
+  --height: auto; /* Ajusta la altura del modal */
+  --border-radius: 10px; /* Bordes redondeados */
+  --margin-top: 10%; /* Espacio superior */
+  --margin-bottom: 10%; /* Espacio inferior */
+}
+
+.custom-modal-size .modal-wrapper {
+  max-height: 80vh; /* Maxima altura */
+  max-width: 80vw; /* Maxima anchura */
+  margin: 0 auto; /* Centrado en la pantalla */
+  overflow-y: auto; /* Si el contenido es muy largo, agrega desplazamiento */
+}
