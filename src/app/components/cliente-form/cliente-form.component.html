@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>{{ cliente.id ? 'Completa los campos' : 'Editar Cliente' }}</ion-title>
+    <ion-title>{{ cliente.nombre === '' ? 'Completa los campos' : 'Editar Cliente' }}</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="close()">Cerrar</ion-button>
     </ion-buttons>

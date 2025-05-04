@@ -1,9 +1,14 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { FirestoreService } from 'src/app/common/services/firestore.service';
 import { ClienteI } from 'src/app/models/cliente.model';
 import { ClienteService } from 'src/app/services/cliente.service';
-import { AlertController, ModalController } from '@ionic/angular';
+import {
+  AlertController,
+  IonItemSliding,
+  ModalController,
+  ToastController,
+} from '@ionic/angular';
 import { ClienteFormComponent } from 'src/app/components/cliente-form/cliente-form.component';
 
 @Component({
@@ -20,16 +25,39 @@ export class ClientesPage implements OnInit {
   clientesFiltrados: ClienteI[] = [];
   searchTerm: string = '';
   fltroEstado: 'todos' | 'activo' | 'inactivo' = 'activo';
-
+  //este es para el item sliding
+  //@ViewChild('firstSlidingItem', { static: false }) firstSlidingItem!: IonItemSliding;
   constructor(
     private modalCtrl: ModalController,
     private firestoreService: FirestoreService,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private toastController: ToastController
   ) {
     this.listarClientes();
-   this.initCliente(); // Inicializar el cliente al cargar el componente
+    this.initCliente(); // Inicializar el cliente al cargar el componente
   }
   ngOnInit() {}
+
+
+// este es para el item sliding
+/* ionViewDidEnter() {
+    setTimeout(() => {
+      this.firstSlidingItem.open('end');
+
+      // Cerrar automáticamente luego de 2 segundos
+      setTimeout(() => {
+        this.firstSlidingItem.close();
+      }, 2000);
+
+    }, 500);
+  }*/
+  async presentToast(message: string) {
+    const toast = await this.toastController.create({
+      message,
+      duration: 2000,
+    });
+    toast.present();
+  }
 
   listarClientes() {
     this.firestoreService
@@ -87,6 +115,7 @@ export class ClientesPage implements OnInit {
           text: 'Eliminar',
           handler: async () => {
             await this.firestoreService.deleteDocument('clientes', cliente.id);
+            this.presentToast('Cliente eliminado correctamente');
           },
         },
       ],
@@ -101,6 +130,7 @@ export class ClientesPage implements OnInit {
       this.newClient.id
     );
     this.initCliente(); // Reiniciar el formulario después de guardar
+      this.presentToast('Cliente guardado correctamente');
   }
   //desde aca es el modal
   async abrirFormulario(cliente?: ClienteI) {
@@ -111,12 +141,12 @@ export class ClientesPage implements OnInit {
           apellido: '',
           telefono: '',
           estado: 'activo',
-          id: this.firestoreService.createIDDoc(),
+          id: this.firestoreService.createIDDoc(),// Genera un ID si es nuevo cliente
         };
     const modal = await this.modalCtrl.create({
       component: ClienteFormComponent,
       componentProps: {
-        cliente: clienteInicializado,// Pasar el cliente inicializado al modal
+        cliente: clienteInicializado, // Pasar el cliente inicializado al modal
       },
       cssClass: 'custom-modal',
       presentingElement: await this.modalCtrl.getTop(),

@@ -34,11 +34,6 @@
       <ion-col class="ml-5 py-2">{{cliente.nombre}}</ion-col>
       <ion-col class="py-2">{{cliente.apellido}}</ion-col>
       <ion-col class="py-2">{{cliente.telefono}}</ion-col>
-      <!--   <ion-col class="py-2">
-          <ion-badge [color]="cliente.estado === 'activo' ? 'success' : 'danger'">
-            {{ cliente.estado }}
-          </ion-badge>
-        </ion-col> -->
 
       <ion-col class="py-2 flex justify-center gap-1">
 
@@ -65,6 +60,8 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+
+
 <!--   <ion-card>
     <ion-item>
       <ion-label style="margin-right: 6px">Nombre: </ion-label>
@@ -89,20 +86,72 @@
     </ion-fab-button>
   </ion-fab>
 </ion-content>
-<!--  <ion-fab  id="open-modal" vertical="bottom" horizontal="end" slot="fixed">
-     <ion-fab-button class="custom-fab" >
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+<!--  con item-sliding
+  <ion-list>
+    <ion-item-sliding
+      #firstSlidingItem
+      *ngFor="let cliente of clientesFiltrados"
+    >
+      <ion-item>
+        <ion-label class="ion-text-wrap">
+          <h2>{{ cliente.nombre }} {{ cliente.apellido }}</h2>
+          <p>📞 {{ cliente.telefono }}</p>
+        </ion-label>
+      </ion-item>
 
-  <ion-modal trigger="open-modal" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
-    <ng-template>
-      <div class="block">Block of Content</div>
+      <ion-item-options side="end">
+        <ion-item-option color="success" expandable (click)="abrirFormulario(cliente)">
+          <ion-icon name="create-outline"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+      <ion-item-options side="start">
+        <ion-item-option color="danger" expandable (click)="deleteClient(cliente)">
+          <ion-icon name="trash-outline"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+  -->
+<!-- con grid
+ <ion-grid class="bg-pink-50 rounded-lg shadow-lg ion-padding-content mb-20">
+   // Encabezados de la tabla
+    <ion-row class="bg-pink-50 font-bold">
+      <ion-col class="ml-5 py-3">Nombre</ion-col>
+      <ion-col class="py-3">Apellido</ion-col>
+      <ion-col class="py-3">Teléfono</ion-col>
+      <ion-col class="py-3 text-center">Acciones</ion-col>
+    </ion-row>
 
-    <ion-item>
-      <ion-label position="floating">E-Mail</ion-label>
-      <ion-input formControlName="email" type="text"></ion-input>
-    </ion-item>>
+    //Filas dinámicas
 
-    </ng-template>
-  </ion-modal> -->
+    <ion-row *ngFor="let cliente of clientesFiltrados" class="border-b">
+      <ion-col class="ml-5 py-2">{{cliente.nombre}}</ion-col>
+      <ion-col class="py-2">{{cliente.apellido}}</ion-col>
+      <ion-col class="py-2">{{cliente.telefono}}</ion-col>
+
+      <ion-col class="py-2 flex justify-center gap-1">
+
+        <ion-button
+          class="custom-green !h-8 !w-8 !min-w-0 !p-0 !rounded-none"
+          (click)="abrirFormulario(cliente)"
+        >
+          <ion-icon
+            name="create-outline"
+            slot="icon-only"
+            class="!text-sm"
+          ></ion-icon
+        ></ion-button>
+        <ion-button
+          class="custom-red  !h-8 !w-8 !min-w-0 !p-0 !rounded-none"
+          (click)="deleteClient(cliente)"
+        >
+          <ion-icon
+            name="trash-outline"
+            slot="icon-only"
+            class="!text-sm"
+          ></ion-icon
+        ></ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  -->
