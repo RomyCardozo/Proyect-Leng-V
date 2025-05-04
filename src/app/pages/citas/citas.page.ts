@@ -3,7 +3,7 @@ import { FirestoreService } from 'src/app/common/services/firestore.service';
 import { Cita } from 'src/app/models/cita.model';
 import { ClienteI } from 'src/app/models/cliente.model';
 import { Servicio } from 'src/app/models/servicio.model';
-import { Usuario } from 'src/app/models/usuario.model';
+import { UsuarioI } from 'src/app/models/usuario.model';
 import { CitasService } from 'src/app/services/citas.service';
 
 @Component({

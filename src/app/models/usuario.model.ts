@@ -1,5 +1,5 @@
-export interface Usuario{
-  id?: string;
+export interface UsuarioI{
+  id: string;
   nombre: string;
   email: string;
   clave: string;

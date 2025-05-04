@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { t } from '@angular/core/weak_ref.d-Bp6cSy-X';
 import { FirestoreService } from 'src/app/common/services/firestore.service';
-import { Usuario } from 'src/app/models/usuario.model';
+import { UsuarioI } from 'src/app/models/usuario.model';
+
 
 @Component({
   selector: 'app-usuarios',
@@ -9,19 +11,32 @@ import { Usuario } from 'src/app/models/usuario.model';
   standalone: false,
 })
 export class UsuariosPage implements OnInit {
-  usuarios: Usuario[] = []; // Array de usuarios
+  usuarios: UsuarioI[] = []; // Array de usuarios
+  newUser!: UsuarioI; // Nuevo usuario
+  user!: UsuarioI; // Usuario actual
   searchTerm: string = '';
   fltroEstado: 'todos' | 'activo' | 'inactivo' = 'activo';
 
   constructor(private firestoreService: FirestoreService) {
     this.ObtenerUsuarios();
+    this.initUser(); // Inicializa el nuevo usuario
   }
 
   ngOnInit() {}
 
+  initUser() {
+    this.newUser = {
+      nombre: '',
+      email: '',
+      clave: '',
+      estado: 'activo',
+      id: this.firestoreService.createIDDoc(),
+    };
+  }
+
   ObtenerUsuarios() {
     this.firestoreService
-      .obtenerColecciones<Usuario>('usuario')
+      .obtenerColecciones<UsuarioI>('usuario')
       .subscribe((data) => {
         if (data) {
           this.usuarios = data;
@@ -29,11 +44,15 @@ export class UsuariosPage implements OnInit {
       });
   }
 
-  eliminarUsuario() {
-    console.log('Usuario eliminado');
+  editUser(usuario: UsuarioI) {
+    this.newUser = usuario;
+  }
+  async deleteUser(usuario: UsuarioI) {
+    await this.firestoreService.deleteDocument('usuario', usuario.id);
   }
 
-  editarUsuario(){
-    console.log('Usuario editado');
+  async saveUser() {
+    await this.firestoreService.createDocumentoID(this.newUser,'usuario',this.newUser.id);
+    this.initUser(); // Reinicia el nuevo usuario
   }
 }

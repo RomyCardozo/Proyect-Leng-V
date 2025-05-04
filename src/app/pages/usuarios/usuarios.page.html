@@ -31,23 +31,35 @@
     <ion-row  *ngFor="let u of usuarios" class="border-b">
       <ion-col class="ml-5 py-2">{{u.nombre}}</ion-col>
       <ion-col class="py-2">{{u.email}}</ion-col>
-    <!--   <ion-col class="py-2">
-        <ion-badge [color]="cliente.estado === 'activo' ? 'success' : 'danger'">
-          {{ cliente.estado }}
-        </ion-badge>
-      </ion-col> -->
-
       <ion-col class="py-2 flex justify-end gap-1">
-        <ion-button class="custom-red !h-8 !w-8 !min-w-0 !p-0 !rounded-none " (click)="eliminarUsuario()"> <ion-icon  name="trash-outline"slot="icon-only"
+        <ion-button class="custom-red !h-8 !w-8 !min-w-0 !p-0 !rounded-none " (click)="deleteUser(u)"> <ion-icon  name="trash-outline"slot="icon-only"
           class="!text-sm"  ></ion-icon></ion-button>
-        <ion-button class="custom-green !h-8 !w-8 !min-w-0 !p-0 !rounded-none " (click)="editarUsuario()"> <ion-icon name="create-outline" slot="icon-only"
+        <ion-button class="custom-green !h-8 !w-8 !min-w-0 !p-0 !rounded-none " (click)="editUser(u)"> <ion-icon name="create-outline" slot="icon-only"
           class="!text-sm"></ion-icon></ion-button>
       </ion-col>
-
     </ion-row>
-
 </ion-grid>
+
+<ion-card>
+  <ion-item>
+    <ion-label style="margin-right: 6px;">Nombre</ion-label>
+    <ion-input type="text" [(ngModel)]="newUser.nombre"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label style="margin-right: 6px;">Email</ion-label>
+    <ion-input type="email" [(ngModel)]="newUser.email"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label style="margin-right: 6px;">Contraseña</ion-label>
+    <ion-input type="password" [(ngModel)]="newUser.clave"></ion-input>
+  </ion-item>
+</ion-card>
+<div style="margin: 20px">
+  <ion-button expand="full" (click)="saveUser()">Guardar</ion-button>
+</div>
+
 </ion-content>
+
 
 <!--<ion-fab vertical="bottom" horizontal="end" slot="fixed">
   <ion-fab-button class="custom-fab" (click)="probarAddCliente()">
