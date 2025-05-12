@@ -10,15 +10,15 @@ import { FirestoreService } from 'src/app/common/services/firestore.service';
   standalone: false,
 })
 export class ClienteFormComponent  implements OnInit {
-  @Input() cliente!: ClienteI;
+  @Input() cliente!: ClienteI;//primer paso
   constructor(private modalCtrl: ModalController,
-    private firestoreService: FirestoreService) { }
+    private firestoreService: FirestoreService) { }// segundo paso injectar el servicio de firestore
 
   ngOnInit() {
     console.log(this.cliente);
   }
   close() {
-    this.modalCtrl.dismiss();
+    this.modalCtrl.dismiss();// cerrar el modal
   }
 
   // Guardar cliente (nuevo o editado)

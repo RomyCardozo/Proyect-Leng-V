@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{
+      "Completa los campos"
+    }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="close()">Cerrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="" >
+  <form #form="ngForm" (ngSubmit)="save()">
+    <ion-item>
+      <ion-label position="floating">Nombre</ion-label>
+      <ion-input
+        [(ngModel)]="usuario.nombre"
+        name="nombre"
+        required
+      ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input
+        [(ngModel)]="usuario.email"
+        name="email"
+        required
+        email
+      ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Contraseña</ion-label>
+      <ion-input [(ngModel)]="usuario.clave" name="clave" required></ion-input>
+    </ion-item>
+
+<!-- Email mal formado -->
+<div *ngIf="form.controls['email']?.errors?.['email'] && form.controls['email']?.touched"
+     class="ion-padding-start ion-text-danger">
+  Ingresá un email válido.
+</div>
+    <ion-footer>
+      <ion-button class="" expand="full" type="submit" [disabled]="!form.valid">{{
+        usuario.id ? "Guardar" : "Crear"
+      }}</ion-button>
+    </ion-footer>
+  </form>
+
+</ion-content>
