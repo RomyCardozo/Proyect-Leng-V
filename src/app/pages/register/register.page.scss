@@ -1,0 +1,15 @@
+ion-content {
+  --background: url('/assets/icon/fondo1.png') no-repeat center center / cover;
+
+  //--background: linear-gradient(90deg, rgba(255,142,205,1) 0%, rgb(218, 111, 169) 35%, rgba(242,192,220,1) 100%);
+}
+ion-button.custom-pink {
+  --background: #de807d;
+  --background-hover: #cc7471;
+  --color: white;
+}
+
+.tarjeta-login {
+  background: rgba(255, 255, 255, 0.9); /* Fondo blanco con 80% de opacidad */
+  border-radius: 16px; /* Bordes redondeados */
+}

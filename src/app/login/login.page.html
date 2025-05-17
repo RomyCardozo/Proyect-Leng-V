@@ -22,60 +22,77 @@
         </div>
 
         <!-- Campo Email con ícono -->
-        <ion-item
-          class="ion-no-padding ion-margin-bottom border rounded-xl"
-          lines="none"
-        >
-          <ion-icon
-            slot="start"
-            name="mail-outline"
-            class="text-xl ml-2"
-            color="primary"
-          ></ion-icon>
-          <ion-input placeholder="user@gmail.com"></ion-input>
-        </ion-item>
-
-        <!-- Campo Password con ícono -->
-        <ion-item
-          class="ion-no-padding ion-margin-bottom border rounded-xl"
-          lines="none"
-        >
-          <ion-icon
-            slot="start"
-            name="lock-closed-outline"
-            class=" text-xl ml-2"
-            color="primary"
-          ></ion-icon>
-          <ion-input type="password" value="1234567891011121314151617181920">
-            <ion-input-password-toggle
-              slot="end"
-              color="primary"
-            ></ion-input-password-toggle>
-          </ion-input>
-        </ion-item>
-
-        <!-- Botón Login -->
-        <ion-button
-          type="submit"
-          routerLink="/citas"
-          expand="block"
-          class="custom-pink"
-        >
-          Iniciar sesion
-        </ion-button>
-        <ion-button
-        fill="outline"
-        routerLink="/register"
-        expand="block"
-        routerLink="/register"
-      >
-        Registrate
-      </ion-button>
-        <!-- Olvidaste tu contraseña? -->
-        <ion-col size="12" size-md="6" size-lg="4" class="ion-text-center flex justify-center items-center hover:text-pink-500">
-          <ion-label class="text-sm" color="dark">
-            ¿Olvidaste tu contraseña?</ion-label
+        <form [formGroup]="iniciarUsuario" (ngSubmit)="logIn()">
+          <ion-item
+            class="ion-no-padding ion-margin-bottom border rounded-xl"
+            lines="none"
           >
+            <ion-icon
+              slot="start"
+              name="mail-outline"
+              class="text-xl ml-2"
+              color="primary"
+            ></ion-icon>
+            <ion-input
+              type="email"
+              placeholder="user@gmail.com"
+              formControlName="email"
+            ></ion-input>
+          </ion-item>
+
+          <!-- Campo Password con ícono -->
+          <ion-item
+            class="ion-no-padding ion-margin-bottom border rounded-xl"
+            lines="none"
+          >
+            <ion-icon
+              slot="start"
+              name="lock-closed-outline"
+              class="text-xl ml-2"
+              color="primary"
+            ></ion-icon>
+            <ion-input type="password"
+              placeholder="Contraseña"
+              formControlName="clave">
+              <ion-input-password-toggle
+                slot="end"
+                color="primary"
+              ></ion-input-password-toggle>
+            </ion-input>
+          </ion-item>
+          <!-- Error -->
+          <div
+            *ngIf="errorMessage"
+            class="text-red-500 text-sm text-center mt-2"
+          >
+            {{ errorMessage }}
+          </div>
+          <!-- Botón Login -->
+          <ion-button
+            type="submit"
+            [disabled]="iniciarUsuario.invalid"
+            expand="block"
+            class="custom-pink"
+          >
+            Iniciar sesion
+          </ion-button>
+          <ion-button
+            fill="outline"
+            routerLink="/register"
+            expand="block"
+            routerLink="/register"
+          >
+            Registrate
+          </ion-button>
+        </form>
+        <!-- Olvidaste tu contraseña? -->
+        <ion-col size="12" class="flex justify-center items-center">
+          <ion-label
+            class="text-sm text-center hover:text-pink-500"
+            color="dark"
+          >
+            ¿Olvidaste tu contraseña?
+          </ion-label>
         </ion-col>
       </ion-col>
     </ion-row>

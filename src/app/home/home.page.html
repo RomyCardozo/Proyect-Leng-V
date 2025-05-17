@@ -3,14 +3,74 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Home</ion-title>
+    <ion-title>Inicio</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Home</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="ion-padding bg-pink-50">
+  <!-- Encabezado del Home -->
+  <div class="text-center mb-6">
+    <h2 class="text-2xl font-serif text-pink-600">¡Hola de nuevo!</h2>
+    <p class="text-sm text-gray-600">Gestiona tu salón con estilo</p>
+  </div>
+
+  <!-- Tarjetas principales de acceso rápido -->
+  <ion-grid>
+    <ion-row class="ion-justify-content-center ion-align-items-stretch">
+      <!-- Citas -->
+      <ion-col size="6" size-md="4" class="p-2">
+        <ion-card button routerLink="/citas" class="rounded-2xl shadow-lg hover:shadow-xl">
+          <ion-card-content class="text-center space-y-2">
+            <ion-icon name="calendar" size="large" color="primary"></ion-icon>
+            <h3 class="text-lg font-medium">Citas</h3>
+            <p class="text-sm text-gray-500">Agenda y controla tus citas</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <!-- Clientas -->
+      <ion-col size="6" size-md="4" class="p-2">
+        <ion-card button routerLink="/clientes" class="rounded-2xl shadow-lg hover:shadow-xl">
+          <ion-card-content class="text-center space-y-2">
+            <ion-icon name="people" size="large" color="primary"></ion-icon>
+            <h3 class="text-lg font-medium">Clientas</h3>
+            <p class="text-sm text-gray-500">Consulta y edita clientas</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <!-- Servicios -->
+      <ion-col size="6" size-md="4" class="p-2">
+        <ion-card button routerLink="/servicios" class="rounded-2xl shadow-lg hover:shadow-xl">
+          <ion-card-content class="text-center space-y-2">
+            <ion-icon name="cut" size="large" color="primary"></ion-icon>
+            <h3 class="text-lg font-medium">Servicios</h3>
+            <p class="text-sm text-gray-500">Lista de servicios del salón</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <!-- Recordatorios -->
+      <ion-col size="6" size-md="4" class="p-2">
+        <ion-card button routerLink="/recordatorios" class="rounded-2xl shadow-lg hover:shadow-xl">
+          <ion-card-content class="text-center space-y-2">
+            <ion-icon name="notifications" size="large" color="primary"></ion-icon>
+            <h3 class="text-lg font-medium">Recordatorios</h3>
+            <p class="text-sm text-gray-500">No te olvides de nada</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <!-- Configuración
+      <ion-col size="6" size-md="4" class="p-2">
+        <ion-card button routerLink="/configuracion" class="rounded-2xl shadow-lg hover:shadow-xl">
+          <ion-card-content class="text-center space-y-2">
+            <ion-icon name="settings" size="large" color="primary"></ion-icon>
+            <h3 class="text-lg font-medium">Configuración</h3>
+            <p class="text-sm text-gray-500">Ajustes del sistema</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col> -->
+    </ion-row>
+  </ion-grid>
 </ion-content>
