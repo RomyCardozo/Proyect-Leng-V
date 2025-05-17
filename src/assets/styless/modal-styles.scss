@@ -13,3 +13,19 @@
   margin: 0 auto; /* Centrado en la pantalla */
   overflow-y: auto; /* Si el contenido es muy largo, agrega desplazamiento */
 }
+
+/* NUEVO: para móviles */
+@media (max-width: 480px) {
+  .custom-modal-size {
+    --width: 95%;
+    --height: auto;
+    --margin-top: 5%;
+    --margin-bottom: 5%;
+  }
+
+  .custom-modal-size .modal-wrapper {
+    max-height: 90vh;
+    max-width: 95vw;
+  }
+}
+

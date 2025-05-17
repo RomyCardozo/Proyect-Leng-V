@@ -1,7 +1,7 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import "src/assets/styless/modal-styles.scss"; // si está ahí
 
 /*
  * App Global CSS
@@ -40,14 +40,33 @@
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 /*@import "@ionic/angular/css/palettes/dark.system.css";*/
 
-
 ion-content {
   --background: linear-gradient(90deg, #e09492 0%, #eb8581 35%, #f3a7a4 100%);
-
 }
 .custom-modal {
   --width: 50%;
   --height: 60%;
-  --border-radius: 10px;
+  --border-radius: 16px;
   --background: white;
+}
+ion-title {
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: unset !important;
+}
+ion-toolbar ion-buttons {
+  padding-right: 8px;
+}
+
+@media (max-width: 480px) {
+  .custom-modal {
+    --width: 95%;
+    --max-height: 40vh;
+    --border-radius: 16px;
+  }
+
+  .custom-modal .modal-wrapper {
+    max-height: 90vh;
+    max-width: 95vw;
+  }
 }

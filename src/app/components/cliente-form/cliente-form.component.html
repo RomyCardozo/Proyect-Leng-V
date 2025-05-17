@@ -1,6 +1,8 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>{{ cliente.nombre === '' ? 'Completa los campos' : 'Editar Cliente' }}</ion-title>
+    <ion-title>{{
+      cliente.nombre === "" ? "Completa los campos" : "Editar Cliente"
+    }}</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="close()">Cerrar</ion-button>
     </ion-buttons>
@@ -9,24 +11,37 @@
 
 <ion-content class="">
   <form #form="ngForm" (ngSubmit)="save()">
-
     <ion-item>
       <ion-label position="floating">Nombre</ion-label>
-      <ion-input [(ngModel)]="cliente.nombre" name="nombre" required></ion-input>
+      <ion-input
+        [(ngModel)]="cliente.nombre"
+        name="nombre"
+        required
+      ></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="floating">Apellido</ion-label>
-      <ion-input [(ngModel)]="cliente.apellido" name="apellido" required></ion-input>
+      <ion-input
+        [(ngModel)]="cliente.apellido"
+        name="apellido"
+        required
+      ></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="floating">Teléfono</ion-label>
-      <ion-input [(ngModel)]="cliente.telefono" name="telefono" required></ion-input>
+      <ion-input
+        [(ngModel)]="cliente.telefono"
+        name="telefono"
+        required
+      ></ion-input>
     </ion-item>
 
-    <ion-footer>
-      <ion-button expand="full" type="submit" [disabled]="!form.valid">{{ cliente.id ? 'Guardar' : 'Crear' }}</ion-button>
-    </ion-footer>
+    <div class="ion-padding">
+      <ion-button expand="full" type="submit" [disabled]="!form.valid">
+        {{ cliente.id ? "Guardar" : "Crear" }}
+      </ion-button>
+    </div>
   </form>
 </ion-content>
