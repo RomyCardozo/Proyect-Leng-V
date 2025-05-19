@@ -1,12 +1,15 @@
 import { Timestamp } from "@angular/fire/firestore";
 
-export interface Cita {
-  id?: string;
+export interface CitaI {
+  id: string;
   clienteId: string;
   servicioId: string;
   usuarioId: string;
-  fecha: Timestamp;
-  estado: 'pendiente' | 'completada' | 'cancelada';
+  fecha: string; // Cambiado a Date
+  estado?: 'pendiente' | 'completada' | 'cancelada';
+
+
+
   clienteNombre?: string;    // Agregado
   usuarioNombre?: string;    // Agregado
   servicioNombre?: string;   // Agregado

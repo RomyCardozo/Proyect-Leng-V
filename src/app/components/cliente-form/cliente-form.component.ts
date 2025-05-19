@@ -9,16 +9,18 @@ import { FirestoreService } from 'src/app/common/services/firestore.service';
   styleUrls: ['./cliente-form.component.scss'],
   standalone: false,
 })
-export class ClienteFormComponent  implements OnInit {
-  @Input() cliente!: ClienteI;//primer paso
-  constructor(private modalCtrl: ModalController,
-    private firestoreService: FirestoreService) { }// segundo paso injectar el servicio de firestore
+export class ClienteFormComponent implements OnInit {
+  @Input() cliente!: ClienteI; //primer paso
+  constructor(
+    private modalCtrl: ModalController,
+    private firestoreService: FirestoreService
+  ) {} // segundo paso injectar el servicio de firestore
 
   ngOnInit() {
     console.log(this.cliente);
   }
   close() {
-    this.modalCtrl.dismiss();// cerrar el modal
+    this.modalCtrl.dismiss(); // cerrar el modal
   }
 
   // Guardar cliente (nuevo o editado)
@@ -27,8 +29,11 @@ export class ClienteFormComponent  implements OnInit {
       this.cliente.id = this.firestoreService.createIDDoc(); // Genera un ID si es nuevo cliente
     }
 
-    await this.firestoreService.createDocumentoID(this.cliente, 'clientes', this.cliente.id);
+    await this.firestoreService.createDocumentoID(
+      this.cliente,
+      'clientes',
+      this.cliente.id
+    );
     this.modalCtrl.dismiss(this.cliente); // Cerrar modal y pasar datos
-
-}
+  }
 }

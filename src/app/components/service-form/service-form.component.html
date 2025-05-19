@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{
+      servicio.id === "" ? "Completa los campos" : "Editar Cliente"
+    }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="close()">Cerrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="">
+  <form #form="ngForm" (ngSubmit)="save()">
+    <ion-item>
+      <ion-label position="floating">Descripcion</ion-label>
+      <ion-input
+        [(ngModel)]="servicio.descripcion"
+        name="nombre"
+        required
+      ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Precio</ion-label>
+      <ion-input
+        [(ngModel)]="servicio.precio"
+        name="descripcion"
+        required
+      ></ion-input>
+    </ion-item>
+
+    <div class="ion-padding">
+      <ion-button expand="full" type="submit" [disabled]="!form.valid">
+        {{ servicio.id ? "Guardar" : "Crear" }}
+      </ion-button>
+    </div>
+  </form>
+</ion-content>

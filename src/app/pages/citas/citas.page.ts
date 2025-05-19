@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Timestamp } from 'firebase/firestore';
 import { FirestoreService } from 'src/app/common/services/firestore.service';
-import { Cita } from 'src/app/models/cita.model';
+import { CitaI } from 'src/app/models/cita.model';
 import { ClienteI } from 'src/app/models/cliente.model';
-import { Servicio } from 'src/app/models/servicio.model';
+import { ServicioI } from 'src/app/models/servicio.model';
 import { UsuarioI } from 'src/app/models/usuario.model';
-import { CitasService } from 'src/app/services/citas.service';
 
 @Component({
   selector: 'app-citas',
@@ -13,61 +13,63 @@ import { CitasService } from 'src/app/services/citas.service';
   standalone: false,
 })
 export class CitasPage implements OnInit {
-  citas: any[] = [];
+  citas: CitaI[] = [];
 
-  constructor(private firestoreService: FirestoreService) {
+  constructor(private firestoreService: FirestoreService) {}
+
+  ngOnInit() {
     this.obtenerCitas();
   }
 
-  ngOnInit() {
-  }
+  async obtenerCitas() {
+    try {
+      const rawCitas =
+        await this.firestoreService.obtenerColeccionPromise<CitaI>('citas');
 
-  // Función para obtener las citas desde Firestore
-  obtenerCitas() {
-    this.firestoreService.obtenerColecciones<any>('citas').subscribe(
-      (data) => {
-        console.log('Citas obtenidas:', data);
+      const citasEnriquecidas: CitaI[] = await Promise.all(
+        rawCitas.map(async (cita) => {
+          const cliente =
+            await this.firestoreService.obtenerDocumento<ClienteI>(
+              'clientes',
+              cita.clienteId
+            );
+          const servicio =
+            await this.firestoreService.obtenerDocumento<ServicioI>(
+              'servicio',
+              cita.servicioId
+            ); // Ojo, plural
+          const usuario =
+            await this.firestoreService.obtenerDocumento<UsuarioI>(
+              'usuario',
+              cita.usuarioId
+            ); // Ojo, plural
 
-        // Procesamos las citas para acceder a los campos dentro de los mapas
-        this.citas = data.map(cita => {
+          // Convertir fecha a string ISO para que Angular no de error en el template
+          let fechaISO = '';
+          let fechaObj: any = cita.fecha;
+
+          if (fechaObj && fechaObj.toDate) {
+            fechaISO = fechaObj.toDate().toISOString();
+          } else if (fechaObj instanceof Date) {
+            fechaISO = fechaObj.toISOString();
+          } else if (typeof fechaObj === 'string') {
+            fechaISO = fechaObj;
+          }
+
           return {
-            clienteNombre: cita.cliente ? cita.cliente.nombre : 'Desconocido',
-            servicioNombre: cita.servicio ? cita.servicio.descripcion : 'Desconocido',
-            usuarioNombre: cita.usuario ? cita.usuario.nombre : 'Desconocido',
-            estado: cita.estado || 'Desconocido',
-            fecha: cita.fecha ? cita.fecha.toDate().toLocaleString() : 'Desconocida',  // Convierte a string si es marca de tiempo
+            ...cita,
+            clienteNombre: cliente?.nombre ?? 'Desconocido',
+            servicioNombre: servicio?.descripcion ?? 'Desconocido',
+            usuarioNombre: usuario?.nombre ?? 'Desconocido',
+            fecha: fechaISO, // guardamos como string ISO
           };
-        });
+        })
+      );
 
-        console.log('Citas procesadas con nombres:', this.citas);
-      },
-      (error) => {
-        console.error('Error al obtener las citas:', error);
-      }
-    );
+      this.citas = citasEnriquecidas;
+      console.log('Citas con datos relacionados:', this.citas);
+    } catch (error) {
+      console.error('Error al obtener citas:', error);
+    }
   }
-
-
-
-  /*probarAgregarCita() {
-    const nuevaCita: Cita = {
-      clienteId: '', // 🔹 ID del cliente
-      servicioId: '67890', // 🔹 ID del servicio
-      usuarioId: '54321', //
-      fecha: new Date().toISOString(),
-      estado: 'pendiente',
-    };
-
-    this.citasService.addCita(nuevaCita).then(() =>
-      console.log("✅ Cita agendada con éxito")
-    ).catch(error =>
-      console.error('❌ Error al agregar cita:', error)
-    );
-  }*/
-eliminarCita(id: string){
 }
-editarCita(id: string){
-}
-
-}
-

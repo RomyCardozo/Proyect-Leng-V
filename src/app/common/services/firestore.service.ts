@@ -12,7 +12,8 @@ import {
   setDoc,
 } from '@angular/fire/firestore';
 import { ModalController, ModalOptions } from '@ionic/angular';
-import { Observable } from 'rxjs';
+import { getDoc } from 'firebase/firestore';
+import { firstValueFrom, Observable } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
 
 @Injectable({
@@ -39,4 +40,21 @@ export class FirestoreService {
   createIDDoc() {
     return uuidv4();
   }
+
+
+//--------------------------
+  // 🔽 NUEVO: Obtener documento por ID (para cliente, usuario, servicio)
+  async obtenerDocumento<tipo>(coleccion: string, id: string): Promise<tipo | null> {
+    const ref = doc(this.firestore, `${coleccion}/${id}`);
+    const snap = await getDoc(ref);
+    return snap.exists() ? (snap.data() as tipo) : null;
+  }
+
+  // 🔽 NUEVO: Obtener colección una sola vez con await (en lugar de observable)
+  async obtenerColeccionPromise<tipo>(coleccion: string): Promise<tipo[]> {
+    const obs = this.obtenerColecciones<tipo>(coleccion);
+    return await firstValueFrom(obs);
+  }
+
+
 }
