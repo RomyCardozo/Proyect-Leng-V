@@ -25,14 +25,14 @@
         </ion-badge>
       </ion-label>
       <ion-col size="2" class="ion-text-right">
-        <ion-button class="custom-green !h-8 !w-8 !min-w-0 !p-0 !rounded-none">
+        <ion-button class="custom-green !h-8 !w-8 !min-w-0 !p-0 !rounded-none" (click)="editRecordatorio(recordatorio)">
           <ion-icon
             name="create-outline"
             slot="icon-only"
             class="!text-sm"
           ></ion-icon
         ></ion-button>
-        <ion-button class="custom-red !h-8 !w-8 !min-w-0 !p-0 !rounded-none">
+        <ion-button class="custom-red !h-8 !w-8 !min-w-0 !p-0 !rounded-none" (click)="deleteRecordatorio(recordatorio)">
           <ion-icon
             name="trash-outline"
             slot="icon-only"
@@ -42,4 +42,29 @@
       </ion-col>
     </ion-item>
   </ion-list>
+
+  <!-- card para la edicion y creacion -->
+
+  <ion-card>
+    <ion-item>
+      <ion-label style="margin-right: 8px">descripcion</ion-label>
+      <ion-input [(ngModel)]="newRecordatorio.descripcion"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label style="margin-right: 8px">Fecha</ion-label>
+      <ion-datetime [(ngModel)]="newRecordatorio.fecha"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label style="margin-right: 8px">Prioridad</ion-label>
+      <ion-select [(ngModel)]="newRecordatorio.prioridad">
+        <ion-select-option  value="Alta">Alta</ion-select-option>
+        <ion-select-option value="Media">Media</ion-select-option>
+        <ion-select-option value="Baja">Baja</ion-select-option>
+      </ion-select>
+    </ion-item>
+     <div style="margin: 20px">
+      <ion-button expand="full" (click)="save()">Guardar</ion-button>
+    </div>
+  </ion-card>
+
 </ion-content>

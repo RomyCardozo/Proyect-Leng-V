@@ -10,11 +10,37 @@ import { RecordatorioI } from 'src/app/models/recordatorio.model';
 })
 export class RecordatoriosPage implements OnInit {
   recordatorios: RecordatorioI[] = [];
+  newRecordatorio!: RecordatorioI;
+  record!: RecordatorioI;
   constructor(private firestoreService: FirestoreService) {
     this.listarRecordatorios();
+    this.initRecordatorio();
+  }
+
+  initRecordatorio(){
+    this.newRecordatorio= {
+      descripcion: '',
+      fecha: '',
+      prioridad: 'Baja',
+      id: this.firestoreService.createIDDoc(),
+    }
   }
 
   ngOnInit() {}
+
+  editRecordatorio(recordatorio: RecordatorioI) {
+    this.newRecordatorio = recordatorio;
+  }
+
+  async deleteRecordatorio(recordatorio: RecordatorioI){
+    await this.firestoreService.deleteDocument('recordatorios', recordatorio.id);
+  }
+
+async save(){
+  await this.firestoreService.createDocumentoID(this.newRecordatorio, 'recordatorios', this.newRecordatorio.id);
+  this.initRecordatorio();
+}
+
 
   listarRecordatorios() {
     this.firestoreService
