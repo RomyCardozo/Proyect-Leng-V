@@ -20,7 +20,7 @@
 
         <!-- Fecha -->
         <p class="mt-2 text-sm text-gray-600">
-          📅  {{ cita.fecha | date: 'medium' }}
+          📅 {{ cita.fecha | date: 'medium' }}
         </p>
 
         <!-- Servicio y usuario -->
@@ -34,13 +34,49 @@
 
       <!-- Botones de acción -->
       <ion-item lines="none">
-        <ion-button class="custom-green !h-8 !w-8 !min-w-0 !p-0 !rounded-none">
+        <ion-button class="custom-green !h-8 !w-8 !min-w-0 !p-0 !rounded-none"
+          (click)="editCita(cita)">
           <ion-icon name="create-outline" slot="icon-only"></ion-icon>
         </ion-button>
-        <ion-button class="custom-red !h-8 !w-8 !min-w-0 !p-0 !rounded-none">
+        <ion-button class="custom-red !h-8 !w-8 !min-w-0 !p-0 !rounded-none"
+          (click)="deleteCita(cita)">
           <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
         </ion-button>
       </ion-item>
     </ion-item>
   </ion-list>
+
+  <ion-card>
+    <ion-item>
+      <ion-label style="margin-right: 6px">Cliente</ion-label>
+      <ion-select [(ngModel)]="newCita.clienteId">
+        <ion-select-option *ngFor="let cliente of clientes" [value]="cliente.id">
+          {{ cliente.nombre }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label style="margin-right: 6px">Fecha</ion-label>
+      <ion-datetime [(ngModel)]="newCita.fecha"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label style="margin-right: 6px">Servicio</ion-label>
+      <ion-select [(ngModel)]="newCita.servicioId">
+        <ion-select-option *ngFor="let servicio of servicios" [value]="servicio.id">
+          {{ servicio.descripcion }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label style="margin-right: 6px">Profesional</ion-label>
+      <ion-select [(ngModel)]="newCita.usuarioId">
+        <ion-select-option *ngFor="let usuario of usuarios" [value]="usuario.id">
+          {{ usuario.nombre }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <div style="margin: 20px">
+      <ion-button expand="full" (click)="saveCita()">Guardar</ion-button>
+    </div>
+  </ion-card>
 </ion-content>

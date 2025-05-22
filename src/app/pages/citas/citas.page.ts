@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Timestamp } from 'firebase/firestore';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { FirestoreService } from 'src/app/common/services/firestore.service';
 import { CitaI } from 'src/app/models/cita.model';
 import { ClienteI } from 'src/app/models/cliente.model';
@@ -12,64 +12,101 @@ import { UsuarioI } from 'src/app/models/usuario.model';
   styleUrls: ['./citas.page.scss'],
   standalone: false,
 })
-export class CitasPage implements OnInit {
+export class CitasPage implements OnInit, OnDestroy {
   citas: CitaI[] = [];
+  newCita!: CitaI;
+  clientes: ClienteI[] = [];
+  servicios: ServicioI[] = [];
+  usuarios: UsuarioI[] = [];
+
+  private citasSub!: Subscription;
 
   constructor(private firestoreService: FirestoreService) {}
 
   ngOnInit() {
-    this.obtenerCitas();
+    this.obtenerCitasTiempoReal();
+    this.obtenerClientes();
+    this.obtenerServicios();
+    this.obtenerUsuarios();
+    this.initCita();
   }
 
-  async obtenerCitas() {
-    try {
-      const rawCitas =
-        await this.firestoreService.obtenerColeccionPromise<CitaI>('citas');
-
-      const citasEnriquecidas: CitaI[] = await Promise.all(
-        rawCitas.map(async (cita) => {
-          const cliente =
-            await this.firestoreService.obtenerDocumento<ClienteI>(
-              'clientes',
-              cita.clienteId
-            );
-          const servicio =
-            await this.firestoreService.obtenerDocumento<ServicioI>(
-              'servicio',
-              cita.servicioId
-            ); // Ojo, plural
-          const usuario =
-            await this.firestoreService.obtenerDocumento<UsuarioI>(
-              'usuario',
-              cita.usuarioId
-            ); // Ojo, plural
-
-          // Convertir fecha a string ISO para que Angular no de error en el template
-          let fechaISO = '';
-          let fechaObj: any = cita.fecha;
-
-          if (fechaObj && fechaObj.toDate) {
-            fechaISO = fechaObj.toDate().toISOString();
-          } else if (fechaObj instanceof Date) {
-            fechaISO = fechaObj.toISOString();
-          } else if (typeof fechaObj === 'string') {
-            fechaISO = fechaObj;
-          }
-
-          return {
-            ...cita,
-            clienteNombre: cliente?.nombre ?? 'Desconocido',
-            servicioNombre: servicio?.descripcion ?? 'Desconocido',
-            usuarioNombre: usuario?.nombre ?? 'Desconocido',
-            fecha: fechaISO, // guardamos como string ISO
-          };
-        })
-      );
-
-      this.citas = citasEnriquecidas;
-      console.log('Citas con datos relacionados:', this.citas);
-    } catch (error) {
-      console.error('Error al obtener citas:', error);
+  ngOnDestroy() {
+    if (this.citasSub) {
+      this.citasSub.unsubscribe(); // Desuscribirse al salir
     }
+  }
+
+  obtenerCitasTiempoReal() {
+    this.citasSub = this.firestoreService
+      .obtenerColecciones<CitaI>('citas')
+      .subscribe(async (rawCitas) => {
+        const citasEnriquecidas: CitaI[] = await Promise.all(
+          rawCitas.map(async (cita) => {
+            const cliente = await this.firestoreService.obtenerDocumento<ClienteI>('clientes', cita.clienteId);
+            const servicio = await this.firestoreService.obtenerDocumento<ServicioI>('servicio', cita.servicioId);
+            const usuario = await this.firestoreService.obtenerDocumento<UsuarioI>('usuario', cita.usuarioId);
+
+            let fechaISO = '';
+            let fechaObj: any = cita.fecha;
+
+            if (fechaObj && fechaObj.toDate) {
+              fechaISO = fechaObj.toDate().toISOString();
+            } else if (fechaObj instanceof Date) {
+              fechaISO = fechaObj.toISOString();
+            } else if (typeof fechaObj === 'string') {
+              fechaISO = fechaObj;
+            }
+
+            return {
+              ...cita,
+              clienteNombre: cliente?.nombre ?? 'Desconocido',
+              servicioNombre: servicio?.descripcion ?? 'Desconocido',
+              usuarioNombre: usuario?.nombre ?? 'Desconocido',
+              fecha: fechaISO,
+            };
+          })
+        );
+
+        this.citas = citasEnriquecidas;
+        console.log('Citas en tiempo real:', this.citas);
+      });
+  }
+
+  initCita() {
+    this.newCita = {
+      clienteId: '',
+      servicioId: '',
+      usuarioId: '',
+      fecha: '',
+      id: this.firestoreService.createIDDoc(),
+    };
+  }
+
+  editCita(cita: CitaI) {
+    this.newCita = { ...cita };
+  }
+
+  async saveCita() {
+    await this.firestoreService.createDocumentoID(this.newCita, 'citas', this.newCita.id);
+    this.initCita(); // Se verá reflejado automáticamente
+  }
+
+  async deleteCita(cita: CitaI) {
+    await this.firestoreService.deleteDocument('citas', cita.id);
+    console.log('Cita eliminada:', cita);
+    // Ya no necesitas llamar a this.obtenerCitas()
+  }
+
+  async obtenerClientes() {
+    this.clientes = await this.firestoreService.obtenerColeccionPromise('clientes');
+  }
+
+  async obtenerServicios() {
+    this.servicios = await this.firestoreService.obtenerColeccionPromise('servicio');
+  }
+
+  async obtenerUsuarios() {
+    this.usuarios = await this.firestoreService.obtenerColeccionPromise('usuario');
   }
 }
