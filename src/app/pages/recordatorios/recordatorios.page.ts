@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AlertController, ToastController } from '@ionic/angular';
 import { FirestoreService } from 'src/app/common/services/firestore.service';
 import { RecordatorioI } from 'src/app/models/recordatorio.model';
 
@@ -12,7 +13,10 @@ export class RecordatoriosPage implements OnInit {
   recordatorios: RecordatorioI[] = [];
   newRecordatorio!: RecordatorioI;
   record!: RecordatorioI;
-  constructor(private firestoreService: FirestoreService) {
+  constructor(private firestoreService: FirestoreService,
+    private toast : ToastController,
+    private alertController : AlertController,
+  ) {
     this.listarRecordatorios();
     this.initRecordatorio();
   }
@@ -33,7 +37,25 @@ export class RecordatoriosPage implements OnInit {
   }
 
   async deleteRecordatorio(recordatorio: RecordatorioI){
-    await this.firestoreService.deleteDocument('recordatorios', recordatorio.id);
+    const alert = await this.alertController.create({
+      header: '¿Estás seguro?',
+      message: '¿Deseas eliminar este cliente?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+        },
+        {
+          text: 'Eliminar',
+          handler: async () => {
+            await this.firestoreService.deleteDocument('recordatorios', recordatorio.id);
+          },
+        },
+      ],
+
+    })
+    await alert.present();
   }
 
 async save(){
