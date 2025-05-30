@@ -7,6 +7,9 @@ import {
   createUserWithEmailAndPassword,
   sendEmailVerification,
 } from 'firebase/auth';
+import { doc, setDoc } from 'firebase/firestore';
+import { FirestoreService } from 'src/app/common/services/firestore.service';
+import { UsuarioI } from 'src/app/models/usuario.model';
 
 @Component({
   selector: 'app-register',
@@ -21,7 +24,8 @@ export class RegisterPage implements OnInit {
     private menuCtrl: MenuController,
     private fb: FormBuilder,
     private rt: Router,
-    private auth: Auth
+    private auth: Auth,
+    private firestore: FirestoreService,
   ) {
      this.registrarUsuarios = this.fb.group({
       nombre: ['', [Validators.required]],
@@ -49,8 +53,22 @@ export class RegisterPage implements OnInit {
       .then((userCredential: any) => {
         // Signed in
         const user = userCredential.user;
+
+        //crear objeto usuario
+        const nuevoUsuario : UsuarioI ={
+          nombre: nombre,
+          email: email,
+          clave: clave,
+          id: user.uid,
+          estado: 'activo'
+        }
+        //guardar en la coleccion usuario
+
+        this.firestore.createDocumentoID(nuevoUsuario, 'usuario', user.uid).then(() => {
         this.verificarCorreo(userCredential.user.auth.currentUser);
         this.rt.navigate(['/login']);
+        });
+
       })
       .catch((error) => {
         const errorCode = error.code;
